@@ -1,2 +1,3 @@
-# tryandtry
-LOL
+# capstone
+
+coding is fun :c

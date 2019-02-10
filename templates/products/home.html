@@ -1,0 +1,76 @@
+{# THIS IS WHERE THE HEADER FOOTER IS #}
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{# THIS IS FOR THE HEAD TITLE #}
+{% block head_title %}
+    WELCOME TO
+{% endblock %}
+
+{# FOR BOOTSTRAP BUT IS NOW WORKING #}
+{% comment %}
+{%block jquery %}{% endblock %} 
+{% endcomment %}
+
+{# THIS IS THE CONTENT OF THE WEB PAGE #}
+{# DIANA'S CODE #}
+
+{% block jumbotron %}
+
+    <h1>Welcome to Color Me This, {{ username_is }}!</h1>
+
+<div class="row">
+{% for product in products %}
+    <div class="col-sm-4">
+        <div class="thumbnail">
+            {% if product.productimage_set.all %}
+
+            {% for item in product.productimage_set.all %}
+            <!-- {{item.image}} -->
+        
+            {% if item.featured %}
+            <img class='img-responsive' src="{{ MEDIA_URL }}{{ item.image.url }}" alt="img"/>     
+            {% endif %}
+
+            {% endfor %}
+
+            {% else %}
+            {% load staticfiles %}
+            <img class='image-responsive' src="{% static 'media/products/images/s_mlA0yRk.jpg' %}" alt="placeholder"/>
+            {% endif %}      
+        <div class="caption">
+        <a href='{{product.get_absolute_url}}'><h3>{{ product.title }}</h3></a>
+        <p>{{product.description|truncatewords:15}}</p>
+        <p><a href="{{product.get_absolute_url}}" class='btn btn-primary' role='button'>View</a>
+        <a href="#" class='btn btn-default' role='button'>button</a></p>
+    </div>
+    </div>
+    </div>
+    {%  cycle "" "" "</div></br><hr/><div class='row'>" %}
+{% endfor %}
+{% endblock %}
+</div>
+
+{% comment %} 
+{% block content %}
+<div class="row">
+{% for product in products %}
+    <div class="col-sm=3">
+    {% for item in product.productimage_set.all %}
+    
+    {% if item.featured %} 
+    <img src="{{ MEDIA_URL }} {{ item.image }}" />
+    {% endif %}
+    {% endfor %}
+
+    <a href='{% url "single_product product.slug"%}'> {{product.title}}</a>
+    {{product.price}}
+    </div>
+
+    {% cycle "" "" "" "</div><br><hr><div class='row'" %}
+
+{%endfor%}
+</div>
+
+{%endblock%} 
+{% endcomment %}

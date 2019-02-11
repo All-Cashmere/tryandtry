@@ -28,7 +28,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('', cmt.home),
-    # path('s/', cmt.search, name='search'),
+    path('s/', cmt.search, name='search'),
     path('products/', cmt.showall, name='products'),
     path('products/<slug:slug>/', cmt.single, name='single_product'),
     path('admin/', admin.site.urls),

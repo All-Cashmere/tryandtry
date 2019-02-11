@@ -1,19 +1,50 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class='col-sm-8'>
+        <div class="page-header" >
+                <h1>{{product.title}}</h1>
+            Price: {{ product.price }}
+{#                    <a href='{% url "update_cart" product.slug %}' class='pull-right'>Add to Cart</a><hr/>#}
+{#                Price: {{product.price}}</br>#}
+{#                Shipping: Free with $25+ purchase#}
+           
+ {{product.description|linebreaks}}
+</div> 
+</div>
+{% comment %} {{ product.price}} {% endcomment %}
+{% for img in images %}
+    {% if img.featured %}
+    <div class="col-xs-12 col-md-6">
+    <h1>Featured</h1>
+        <img class='img-responsive' src="{{ MEDIA_URL }}{{ img.image.url }}" alt="img"/>     
+            
+    {% else %}
+    <div class="col-xs-6 col-md-3">
+    <a href="#" class="thumbnail">
+       <img class='img-responsive' src="{{ MEDIA_URL }}{{ img.image.url }}" alt="img"/>     
+            
+    </a>
+    </div>
+    {% comment %} <p>Not Featured</p>
+    <img class='img-table-responsive' src="{{ MEDIA_URL }}{{ img.image }}"> {% endcomment %}
+    {% endif %}
+    {% comment %} {% if not img.featured %}
+        <img class='img-table-responsive' src="{{ MEDIA_URL }}{{ img.image }}">
+    {% endif %} {% endcomment %}
+{% endfor %}
+{% endblock %} 
 
-<h1> {{product.title}} </h1>
-{{ product.price}}
 
 
-{% endblock %}
-{% comment %}
----------DIANA'S CODES------------- 
-<!-- <div class="page-header">
-        <h1>{{product.title}}</h1>
-    </div> -->
-
+{% comment %} 
 {% block content %}
+
+{#---------DIANA'S CODES------------- #}
+<div class="page-header">
+        <h1>{{product.title}}</h1>
+    </div>
+
 
 <div class='row'>
 <div class='col-sm-4'>
@@ -37,12 +68,15 @@
 </div>
 <div class='col-sm-8'>
         <div class="page-header" >
-                <h1>{{product.title}}<a href='{% url "update_cart" product.slug %}' class='pull-right'>Add to Cart</a></h1><hr/>
-                Price: {{product.price}}</br>
-                Shipping: Free with $25+ purchase
+                <h1>{{product.title}}</h1>
+            Price: {{ product.price }}
+{#                    <a href='{% url "update_cart" product.slug %}' class='pull-right'>Add to Cart</a><hr/>#}
+{#                Price: {{product.price}}</br>#}
+{#                Shipping: Free with $25+ purchase#}
            
-    {{product.description|linebreaks}}
+{#    {{product.description|linebreaks}}#}
 </div> 
 </div>
 </div>
-{% endblock %} {% endcomment %}
+{% endblock %}
+{%endcomment%}
